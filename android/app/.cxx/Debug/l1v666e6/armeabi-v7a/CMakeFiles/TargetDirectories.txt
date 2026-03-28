@@ -1,0 +1,15 @@
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/CMakeFiles/appmodules.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/AsyncStorageSpec_autolinked_build/CMakeFiles/edit_cache.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/AsyncStorageSpec_autolinked_build/CMakeFiles/rebuild_cache.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/RNImagePickerSpec_autolinked_build/CMakeFiles/edit_cache.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/RNImagePickerSpec_autolinked_build/CMakeFiles/rebuild_cache.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/safeareacontext_autolinked_build/CMakeFiles/react_codegen_safeareacontext.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/safeareacontext_autolinked_build/CMakeFiles/edit_cache.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/safeareacontext_autolinked_build/CMakeFiles/rebuild_cache.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/rnscreens_autolinked_build/CMakeFiles/react_codegen_rnscreens.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/rnscreens_autolinked_build/CMakeFiles/edit_cache.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/armeabi-v7a/rnscreens_autolinked_build/CMakeFiles/rebuild_cache.dir

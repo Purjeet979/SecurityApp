@@ -1,0 +1,4 @@
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/arm64-v8a/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/foo.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/arm64-v8a/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/boo.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/arm64-v8a/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/edit_cache.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/arm64-v8a/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/rebuild_cache.dir
