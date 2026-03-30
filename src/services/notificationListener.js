@@ -10,10 +10,12 @@ const processedNotifications = new Set();
 // Apps to monitor
 const MONITORED_APPS = [
   'com.whatsapp',
-  'com.whatsapp.w4b',       // WhatsApp Business
+  'com.whatsapp.w4b',          // WhatsApp Business
   'com.instagram.android',
-  'com.facebook.orca',      // Messenger
+  'com.facebook.orca',         // Messenger
   'com.telegram.messenger',
+  'com.google.android.apps.messaging', // Google Messages (RCS + SMS notifications)
+  'com.samsung.android.messaging',     // Samsung Messages
 ];
 
 export const checkNotificationPermission = async () => {
@@ -37,19 +39,29 @@ export const headlessNotificationListener = async ({ notification }) => {
   // Only scan monitored apps
   if (!MONITORED_APPS.includes(app)) return;
 
-  // Skip empty or very short messages
-  if (!text || text.length < 10) return;
+  // Filter out WhatsApp summaries/noise
+  const isSummary = /new messages|messages from|doing work in the background/.test(text.toLowerCase()) || 
+                    /WhatsApp is checking for new messages/.test(text);
+  if (isSummary) return;
 
-  // Deduplicate exact same message text (strip app prefix to catch WhatsApp summary+detail duplicates)
-  const notifHash = `${text.substring(0, 50)}`;
+  // Skip empty or trivial messages
+  if (!text || text.length < 4) return;
+
+  // Check Aegis block list — silently ignore messages from blocked senders
+  const blockedRaw = await AsyncStorage.getItem('aegis_blocked_senders');
+  const blockedList = blockedRaw ? JSON.parse(blockedRaw) : [];
+  if (blockedList.some(b => title?.toLowerCase().includes(b.toLowerCase()) || b.toLowerCase().includes(title?.toLowerCase()))) return;
+
+  // Deduplicate exact same message text (30 second memory)
+  const notifHash = `${app}_${title}_${text.substring(0, 40)}`;
   if (processedNotifications.has(notifHash)) return;
   processedNotifications.add(notifHash);
   setTimeout(() => {
     processedNotifications.delete(notifHash);
-  }, 10000); // 10 second memory
+  }, 30000); 
 
-  // Analyze the notification text
-  const result = await analyzeMessage(text, true);
+  // Analyze locally first (instant, no internet)
+  const result = await analyzeMessage(text, false);
 
   // Save to history
   const history = JSON.parse(
@@ -67,9 +79,11 @@ export const headlessNotificationListener = async ({ notification }) => {
     JSON.stringify(history.slice(0, 50))
   );
 
-  const titleString = result.risk === 'low'
-    ? `${getRiskEmoji(result.risk)} Safe Message Detected`
-    : `${getRiskEmoji(result.risk)} Suspicious message!`;
+  // 🔴 High Risk = "Risky" | 🟡 Medium = "Suspicious" | 🟢 Low = silent
+  const titleString =
+    result.risk === 'high'   ? `🔴 Risky Message! SCAM Alert`  :
+    result.risk === 'medium' ? `🟡 Suspicious Message Detected` :
+                               `🟢 Safe Message Detected`;
 
   const scamTypeString = result.isScam ? (result.scamType || 'Suspicious Content') : 'Looks clean';
 
@@ -87,7 +101,7 @@ export const headlessNotificationListener = async ({ notification }) => {
       title: titleString,
       body: `From ${title} — ${scamTypeString}`,
       risk: result.risk,
-      data: { text, result, app },
+      data: { text, result, app, sender: title }, // pass sender name/number for Block action
     });
   }
 };

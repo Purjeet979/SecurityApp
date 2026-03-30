@@ -54,7 +54,7 @@ export default function MessageScannerScreen() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.GROQ_API_KEY || 'YOUR_GROQ_API_KEY'}`,
+          'Authorization': 'Bearer YOUR_GROQ_API_KEY_HERE',
         },
         body: JSON.stringify({
           model: 'llama3-8b-8192',
@@ -107,111 +107,135 @@ Message to analyze: "${message}"`
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scroll}>
-        <Text style={styles.title}>🚨 Message Scam Detector</Text>
-        <Text style={styles.subtitle}>
-          Paste any suspicious message — we'll detect digital arrest fraud & scams
-        </Text>
-
-        <View style={styles.infoBox}>
-          <Text style={styles.infoText}>
-            💡 Digital Arrest Scam: Fake officers call/message saying you're
-            "digitally arrested" and demand money. This is FAKE — no such law exists!
+      <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.title}>Scam Analysis</Text>
+          <Text style={styles.subtitle}>
+            Analyze suspicious texts and digital arrest threats.
           </Text>
         </View>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Paste suspicious message here..."
-          placeholderTextColor="#475569"
-          value={message}
-          onChangeText={setMessage}
-          multiline
-          numberOfLines={6}
-          textAlignVertical="top"
-        />
+        {/* Info Box */}
+        <View style={styles.infoBox}>
+          <Text style={styles.infoTitle}>Expert Tip</Text>
+          <Text style={styles.infoText}>
+            Digital Arrest is FAKE. No government agency will arrest you over a video call or message. Do not pay!
+          </Text>
+        </View>
 
-        <TouchableOpacity
-          style={styles.analyzeBtn}
-          onPress={analyzeMessage}
-          disabled={loading || !message.trim()}
-        >
-          {loading ? (
-            <ActivityIndicator color="#fff" />
-          ) : (
-            <Text style={styles.analyzeBtnText}>🤖 Analyze with AI</Text>
-          )}
-        </TouchableOpacity>
+        {/* Input Area */}
+        <View style={styles.inputCard}>
+          <TextInput
+            style={styles.input}
+            placeholder="Paste suspicious message here..."
+            placeholderTextColor="#475569"
+            value={message}
+            onChangeText={setMessage}
+            multiline
+            numberOfLines={6}
+            textAlignVertical="top"
+          />
+          <TouchableOpacity
+            style={[styles.analyzeBtn, (loading || !message.trim()) && styles.btnDisabled]}
+            onPress={analyzeMessage}
+            disabled={loading || !message.trim()}
+          >
+            {loading ? (
+              <ActivityIndicator color="#FFFFFF" />
+            ) : (
+              <Text style={styles.analyzeBtnText}>Verify with Aegis AI</Text>
+            )}
+          </TouchableOpacity>
+        </View>
 
+        {/* Result Detailed Section */}
         {result && (
-          <View style={styles.resultContainer}>
-            <View style={[styles.riskBadge,
-            { backgroundColor: getRiskColor(result.riskLevel) }]}>
+          <View style={styles.resultBox}>
+            <View style={[styles.riskHeader, { backgroundColor: getRiskColor(result.riskLevel) }]}>
               <Text style={styles.riskTitle}>
-                {result.isScam ? '🚨 SCAM DETECTED' : '✅ Looks Safe'}
+                {result.isScam ? 'DETECTED AS SCAM' : 'PROBABLY SAFE'}
               </Text>
               <Text style={styles.riskSub}>
-                {result.scamType} — {result.riskLevel?.toUpperCase()} RISK
+                {result.scamType} • {result.riskLevel?.toUpperCase()} RISK
               </Text>
             </View>
 
-            {result.redFlags?.length > 0 && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>🚩 Red Flags Found:</Text>
-                {result.redFlags.map((flag, i) => (
-                  <Text key={i} style={styles.flagItem}>• {flag}</Text>
-                ))}
+            <View style={styles.detailCard}>
+               {result.redFlags?.length > 0 && (
+                <View style={styles.detailSection}>
+                  <Text style={styles.sectionLabel}>🚩 Threats Found</Text>
+                  <View style={styles.flagsList}>
+                    {result.redFlags.map((flag, i) => (
+                      <View key={i} style={styles.flagPill}>
+                        <Text style={styles.flagText}>{flag}</Text>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+              )}
+
+              <View style={styles.detailSection}>
+                <Text style={styles.sectionLabel}>✅ Action Required</Text>
+                <Text style={styles.actionText}>{result.whatToDo}</Text>
               </View>
-            )}
 
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>✅ What To Do:</Text>
-              <Text style={styles.adviceText}>{result.whatToDo}</Text>
-            </View>
-
-            <View style={[styles.section, styles.hindiBox]}>
-              <Text style={styles.sectionTitle}>🇮🇳 Hindi Mein:</Text>
-              <Text style={styles.adviceText}>{result.hindiAdvice}</Text>
+              <View style={[styles.detailSection, styles.hindiSection]}>
+                <Text style={[styles.sectionLabel, { color: '#10B981' }]}>🇮🇳 Hindi Advice</Text>
+                <Text style={styles.actionText}>{result.hindiAdvice}</Text>
+              </View>
             </View>
           </View>
         )}
+        
+        <View style={{ height: 40 }} />
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#0F172A' },
-  scroll: { padding: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#F8FAFC', marginBottom: 8 },
-  subtitle: { fontSize: 14, color: '#94A3B8', marginBottom: 16 },
+  container: { flex: 1, backgroundColor: '#050810' },
+  scroll: { paddingHorizontal: 20 },
+  header: { marginTop: 24, marginBottom: 28 },
+  title: { fontSize: 32, fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.5 },
+  subtitle: { fontSize: 15, color: '#94A3B8', marginTop: 8, lineHeight: 22 },
+
   infoBox: {
-    backgroundColor: '#1E3A5F', borderRadius: 12,
-    padding: 14, marginBottom: 20,
+    backgroundColor: '#1E1B4B', borderRadius: 24,
+    padding: 20, marginBottom: 24, borderWidth: 1, borderColor: '#312E81',
   },
-  infoText: { color: '#93C5FD', fontSize: 13, lineHeight: 20 },
+  infoTitle: { color: '#818CF8', fontSize: 13, fontWeight: '800', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 6 },
+  infoText: { color: '#C7D2FE', fontSize: 14, lineHeight: 20 },
+
+  inputCard: { backgroundColor: '#111827', borderRadius: 28, padding: 8, borderWidth: 1, borderColor: '#1F2937', marginBottom: 28 },
   input: {
-    backgroundColor: '#1E293B', borderRadius: 14,
-    padding: 16, color: '#F1F5F9', fontSize: 14,
-    minHeight: 120, marginBottom: 16,
-    borderWidth: 1, borderColor: '#334155',
+    padding: 20, color: '#FFFFFF', fontSize: 16,
+    minHeight: 160, lineHeight: 24,
   },
   analyzeBtn: {
-    backgroundColor: '#DC2626', padding: 16,
-    borderRadius: 14, alignItems: 'center', marginBottom: 24,
+    backgroundColor: '#6366F1', padding: 18,
+    borderRadius: 22, alignItems: 'center', margin: 8,
+    elevation: 4, shadowColor: '#6366F1', shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3, shadowRadius: 8,
   },
-  analyzeBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
-  resultContainer: { gap: 16 },
-  riskBadge: {
-    padding: 20, borderRadius: 16, alignItems: 'center',
+  btnDisabled: { opacity: 0.5, backgroundColor: '#334155' },
+  analyzeBtnText: { color: '#FFFFFF', fontWeight: '800', fontSize: 16 },
+
+  resultBox: { gap: 20 },
+  riskHeader: {
+    paddingVertical: 18, paddingHorizontal: 24, borderRadius: 24,
+    alignItems: 'center', elevation: 4,
   },
-  riskTitle: { color: '#fff', fontSize: 20, fontWeight: 'bold' },
-  riskSub: { color: '#fff', fontSize: 13, marginTop: 4, opacity: 0.9 },
-  section: {
-    backgroundColor: '#1E293B', borderRadius: 14, padding: 16, gap: 8,
-  },
-  hindiBox: { backgroundColor: '#1A2E1A' },
-  sectionTitle: { color: '#F1F5F9', fontWeight: 'bold', fontSize: 15 },
-  flagItem: { color: '#FCA5A5', fontSize: 13 },
-  adviceText: { color: '#94A3B8', fontSize: 14, lineHeight: 22 },
+  riskTitle: { color: '#FFFFFF', fontSize: 18, fontWeight: '900', letterSpacing: 1 },
+  riskSub: { color: '#FFFFFF', fontSize: 13, marginTop: 4, fontWeight: '600', opacity: 0.9 },
+
+  detailCard: { backgroundColor: '#111827', borderRadius: 28, padding: 24, borderWidth: 1, borderColor: '#1F2937' },
+  detailSection: { marginBottom: 24 },
+  hindiSection: { marginBottom: 0, padding: 16, backgroundColor: '#064E3B22', borderRadius: 20 },
+  sectionLabel: { color: '#64748B', fontSize: 12, fontWeight: '800', textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 12 },
+  flagsList: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  flagPill: { backgroundColor: '#7F1D1D22', paddingVertical: 6, paddingHorizontal: 12, borderRadius: 10, borderWidth: 1, borderColor: '#7F1D1D' },
+  flagText: { color: '#F87171', fontSize: 13, fontWeight: '600' },
+  actionText: { color: '#E2E8F0', fontSize: 15, lineHeight: 24, fontWeight: '500' },
 });

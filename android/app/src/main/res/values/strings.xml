@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">PhotoGuard</string>
+    <string name="app_name">Aegis</string>
+    <string name="accessibility_description">Aegis uses this to protect you from scams inside payment and messaging apps. We scan for suspicious links and fraudulent requests in real-time.</string>
 </resources>

@@ -9,12 +9,16 @@ export const sendRiskNotification = async ({ title, body, risk, data }) => {
     low: 0xff16A34A,     // Green
   };
 
+  // Extract sender from data if available (title format is "🔴 Risky Message! From Soham T.")
+  const sender = data?.sender || 'Unknown';
+
   try {
     await NotificationModule.showNotification({
       title,
       body,
       color: colorMap[risk] || colorMap.low,
-      priority: risk === 'high' ? 'max' : 'default',
+      risk: risk || 'low',       // Pass risk so Kotlin adds Block/Report for high/medium
+      sender,                    // Pass sender so Block buttons can dial/block them
       data: JSON.stringify(data),
       channelId: 'scam_alerts',
     });

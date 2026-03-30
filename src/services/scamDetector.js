@@ -10,7 +10,7 @@ const DIGITAL_ARREST_PATTERNS = [
 ];
 
 const PHISHING_PATTERNS = [
-  'click this link', 'verify your account',
+  'click this link', 'click here', 'click on this', 'tap here', 'verify your account',
   'your account blocked', 'send otp', 'otp', 'opt',
   'kyc update', 'bank account suspended',
   'winning prize', 'lottery winner',
@@ -27,15 +27,59 @@ const URGENCY_PATTERNS = [
 ];
 
 const EMERGENCY_PATTERNS = [
-  'accident', 'hospital', 'emergency', 'bhejo', 
-  'help', 'bachao', 'urgent money', 'fata fat', 
+  'accident', 'hospital', 'emergency', 'bhejo',
+  'help', 'bachao', 'urgent money', 'fata fat',
   'jaldi', 'paise bhejo', 'lakh bhejo'
 ];
 
+const CRITICAL_PATTERNS = [
+  'otp', 'send otp', 'one time password', 'pin code', 'cvv',
+  'kyc update', 'account blocked', 'bank account suspended',
+  'digital arrest', 'CBI', 'ED officer', 'drugs', 'parcel'
+];
+
+import { analyzeURL } from './urlScanner';
+
 export const analyzeMessage = async (text, useAI = true) => {
   const lower = text.toLowerCase();
+  
+  // 0. Extract and Scan URLs
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const urls = text.match(urlRegex);
+  let urlAnalysis = null;
+  if (urls && urls.length > 0) {
+    urlAnalysis = await analyzeURL(urls[0]);
+    if (urlAnalysis.isPhishing) {
+      return {
+        score: Math.max(80, urlAnalysis.score),
+        risk: 'high',
+        isScam: true,
+        scamType: 'Phishing Link Detected',
+        redFlags: urlAnalysis.redFlags,
+        whatToDo: `DANGER: The link (${urlAnalysis.domain}) is a known phishing threat. DO NOT CLICK.`,
+        hindiAdvice: `Khatra: Yeh link (${urlAnalysis.domain}) ek dhokha hai. Ispe click na karein.`,
+        aiAnalyzed: false,
+        urlData: urlAnalysis
+      };
+    }
+  }
 
-  // Local pattern matching (instant, no internet needed)
+  // 1. Check for Critical Patterns (Instant 'high' risk)
+  const criticalMatches = CRITICAL_PATTERNS.filter(p => lower.includes(p.toLowerCase()));
+  if (criticalMatches.length > 0) {
+    return {
+      score: 100,
+      risk: 'high',
+      isScam: true,
+      scamType: 'Critical Threat',
+      redFlags: criticalMatches,
+      whatToDo: 'NEVER share OTP/PIN. Aegis has flagged this as a severe threat.',
+      hindiAdvice: 'OTP ya PIN kisi ko na dein. Yeh ek bada khatra hai.',
+      aiAnalyzed: false
+    };
+  }
+
+  // 2. Regular Local pattern matching
   const digitalMatches = DIGITAL_ARREST_PATTERNS
     .filter(p => lower.includes(p.toLowerCase()));
   const phishingMatches = PHISHING_PATTERNS
@@ -48,9 +92,9 @@ export const analyzeMessage = async (text, useAI = true) => {
   // Calculate local risk score
   let score = 0;
   score += digitalMatches.length * 40;
-  score += phishingMatches.length * 30; // 1 phishing word is enough to hit 30
+  score += phishingMatches.length * 30; 
   score += urgencyMatches.length * 10;
-  score += emergencyMatches.length * 40; // High risk for emergency scams
+  score += emergencyMatches.length * 40; 
   score = Math.min(score, 100);
 
   const localResult = {
@@ -81,7 +125,7 @@ const callGroqAPI = async (text) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.GROQ_API_KEY || 'YOUR_GROQ_API_KEY'}`,
+      'Authorization': 'Bearer YOUR_GROQ_API_KEY_HERE',
     },
     body: JSON.stringify({
       model: 'llama3-8b-8192',

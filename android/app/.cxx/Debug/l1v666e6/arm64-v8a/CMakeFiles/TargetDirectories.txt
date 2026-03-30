@@ -13,3 +13,6 @@ C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l
 C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/arm64-v8a/rnscreens_autolinked_build/CMakeFiles/react_codegen_rnscreens.dir
 C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/arm64-v8a/rnscreens_autolinked_build/CMakeFiles/edit_cache.dir
 C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/arm64-v8a/rnscreens_autolinked_build/CMakeFiles/rebuild_cache.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/arm64-v8a/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/arm64-v8a/RNVectorIconsSpec_autolinked_build/CMakeFiles/edit_cache.dir
+C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/arm64-v8a/RNVectorIconsSpec_autolinked_build/CMakeFiles/rebuild_cache.dir

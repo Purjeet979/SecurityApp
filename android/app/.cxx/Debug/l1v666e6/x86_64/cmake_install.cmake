@@ -48,6 +48,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/x86_64/RNImagePickerSpec_autolinked_build/cmake_install.cmake")
   include("C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/x86_64/safeareacontext_autolinked_build/cmake_install.cmake")
   include("C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/x86_64/rnscreens_autolinked_build/cmake_install.cmake")
+  include("C:/Users/PURJEET/.gemini/antigravity/scratch/PhotoGuard/android/app/.cxx/Debug/l1v666e6/x86_64/RNVectorIconsSpec_autolinked_build/cmake_install.cmake")
 
 endif()
 

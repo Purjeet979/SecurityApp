@@ -1,5 +1,5 @@
 import { NativeModules, NativeEventEmitter, 
-         PermissionsAndroid, Alert } from 'react-native';
+         PermissionsAndroid, Alert, ToastAndroid } from 'react-native';
 import BackgroundActions from 'react-native-background-actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { analyzeMessage, getRiskEmoji } from './scamDetector';
@@ -32,7 +32,6 @@ const saveScanHistory = async (message, result, source) => {
       source,
       timestamp: new Date().toISOString(),
     });
-    // Keep only last 50 scans
     await AsyncStorage.setItem(
       'scanHistory',
       JSON.stringify(history.slice(0, 50))
@@ -40,30 +39,55 @@ const saveScanHistory = async (message, result, source) => {
   } catch (e) {}
 };
 
+// Deduplicate cache: avoid alerting same SMS twice
+const processedSMS = new Set();
+
 // Background SMS scanning task
 const smsScanTask = async (taskData) => {
   const { SmsAndroid } = NativeModules;
+  if (!SmsAndroid) return;
+
   const eventEmitter = new NativeEventEmitter(SmsAndroid);
 
   // Listen for new SMS in background
   eventEmitter.addListener('onSMSReceived', async (event) => {
     const { messageBody, senderPhoneNumber } = event;
 
-    // Quick local scan first (no internet needed)
+    if (!messageBody || messageBody.length < 5) return;
+
+    // Deduplicate same SMS within 15 seconds
+    const smsHash = messageBody.substring(0, 50);
+    if (processedSMS.has(smsHash)) return;
+    processedSMS.add(smsHash);
+    setTimeout(() => processedSMS.delete(smsHash), 15000);
+
+    // Analyze the message (local + Groq AI)
     const result = await analyzeMessage(messageBody, true);
 
-    // Save to history
+    // Always save to history silently
     await saveScanHistory(messageBody, result, 'SMS');
 
-    // Send notification with risk level
-    await sendRiskNotification({
-      title: `${getRiskEmoji(result.risk)} SMS from ${senderPhoneNumber}`,
-      body: result.isScam
-        ? `⚠️ SCAM DETECTED! ${result.scamType}`
-        : `✅ Message looks safe`,
-      risk: result.risk,
-      data: { messageBody, result },
-    });
+    // Only show alert for Suspicious/Risky — ignore safe SMS
+    if (result.risk !== 'low') {
+      const titleString = `${getRiskEmoji(result.risk)} SMS from ${senderPhoneNumber}`;
+      const scamType = result.scamType || 'Suspicious Content';
+      const bodyString = `⚠️ ${scamType} — Do not respond!`;
+
+      // Float Toast visible even when messaging app is open
+      ToastAndroid.showWithGravity(
+        `${titleString}\n${bodyString}`,
+        ToastAndroid.LONG,
+        ToastAndroid.TOP
+      );
+
+      // Heads-up notification
+      await sendRiskNotification({
+        title: titleString,
+        body: bodyString,
+        risk: result.risk,
+        data: { messageBody, result },
+      });
+    }
   });
 
   // Keep background service alive
@@ -72,12 +96,12 @@ const smsScanTask = async (taskData) => {
 
 // Background service options
 const backgroundOptions = {
-  taskName: 'PhotoGuard SMS Scanner',
-  taskTitle: '🛡️ PhotoGuard Active',
-  taskDesc: 'Scanning messages for scams in real-time',
+  taskName: 'Aegis SMS Scanner',
+  taskTitle: '🛡️ Aegis Protection',
+  taskDesc: 'Scanning for suspicious threads...',
   taskIcon: { name: 'ic_launcher', type: 'mipmap' },
   color: '#4F46E5',
-  linkingURI: 'photoguard://home',
+  linkingURI: 'aegis://home',
   parameters: {},
 };
 
