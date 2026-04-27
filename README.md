@@ -1,97 +1,213 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🚀 Arjun: Next-Gen Social Engineering Protection
 
-# Getting Started
+Arjun (PhotoGuard) is a cybersecurity solution focused on preventing **social engineering attacks** — the most common and dangerous form of digital fraud today.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+Unlike traditional antivirus systems that detect malware, Arjun protects users from **real-time manipulation**.
+
+---
+
+# 📌 Problem
+
+Modern scams don’t rely on hacking — they rely on **human psychology**:
+
+- Fake bank calls asking for OTP  
+- Remote access scams (AnyDesk, TeamViewer)  
+- Fraudulent UPI payment requests  
+- Phishing links & QR codes  
+
+❌ Traditional security tools fail because:
+- No malware is involved  
+- The user is tricked into acting  
+
+---
+
+# 💡 Solution
+
+Arjun provides **real-time behavioral protection** across:
+
+- 📱 Mobile App (Android)  
+- 🌐 Web Extension  
+- ☁️ Threat Intelligence Cloud  
+
+---
+
+# 📱 Mobile App (React Native + Kotlin)
+
+## 🔐 Features
+
+### 1. Social Engineering Guard (USP)
+- Detects risky apps during calls:
+  - GPay, PhonePe  
+  - AnyDesk, TeamViewer  
+- Shows **high-priority alert overlay**
+
+---
+
+### 2. Intelligent Call Overlay
+- 🚨 Red Alert → Known scam number  
+- ⚠️ Yellow Alert → Unknown caller  
+- Displays safety tips:
+  - *"Banks never ask for OTP"*
+
+---
+
+### 3. Ambient Payment Protection
+- Scans:
+  - `upi://collect` links  
+- Blocks:
+  - Fraudulent payment requests  
+
+---
+
+### 4. Phishing & QR Shield
+- Verifies:
+  - URLs  
+  - QR Codes  
+- Detects:
+  - Lookalike domains  
+
+---
+
+# 🌐 Web Extension (Arjun Browser Shield)
+
+## 🔥 Features
+
+### 1. Fake Account Detection
+- Analyzes:
+  - Profile behavior  
+  - Engagement patterns  
+  - Metadata  
+- Flags impersonators  
+
+---
+
+### 2. Universal Phishing Protection
+- Real-time URL scanning  
+- Blocks fake login pages  
+
+---
+
+### 3. Ecosystem Sync
+- Shares threat data between:
+  - Mobile app  
+  - Browser extension  
+
+---
+
+# ⚙️ System Architecture
+
+
+User Device (Mobile/Web)
+↓
+Arjun Protection Layer
+↓
+Threat Intelligence Cloud
+↓
+
+Behavior Analysis
+URL Reputation
+Scam Database
+↓
+Real-time Alerts & Blocking
+
+---
+
+# 🔄 Process Flow
+
+## 📱 Mobile Flow
+
+
+Call Starts
+↓
+User Opens Payment / Remote App
+↓
+Arjun Detects Risk
+↓
+Show Alert Overlay
+↓
+User Takes Action (Stop / Continue)
+
+
+---
+
+## 🌐 Web Flow
+
+
+User Visits Website
+↓
+URL Analysis (Real-time)
+↓
+Phishing / Fake Detected?
+↓
+Yes → Block & Warn User
+No → Allow Access
+
+
+---
+
+# 🧠 Key Innovation
+
+- Context-aware detection (not just static rules)
+- Real-time intervention during scams
+- Cross-platform threat intelligence
+- Focus on **human behavior security**
+
+---
+
+# 🛠️ Tech Stack
+
+## Mobile
+- React Native  
+- Kotlin  
+- Android APIs  
+
+## Web
+- JavaScript  
+- Browser Extension APIs  
+
+## Backend (Concept)
+- Cloud-based threat intelligence  
+- ML-based behavior analysis  
+
+---
+
+# 🚀 Getting Started
 
 ## Step 1: Start Metro
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
-
 ```sh
-# Using npm
 npm start
-
-# OR using Yarn
+# OR
 yarn start
-```
-
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
+Step 2: Run App
+Android
 npm run android
-
-# OR using Yarn
+# OR
 yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
+iOS
 bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
 bundle exec pod install
-```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
 npm run ios
-
-# OR using Yarn
+# OR
 yarn ios
-```
+🔐 Privacy First
+No call recording
+On-device processing
+Minimal data collection
+User-controlled alerts
+📈 Future Scope
+AI-based scam prediction
+Voice scam detection
+Global fraud intelligence network
+Banking integration
+👨‍💻 Author
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+Purjeet Shahu
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+⭐ Contribution
 
-## Step 3: Modify your app
+Pull requests are welcome. For major changes, open an issue first.
 
-Now that you have successfully run the app, let's make changes!
+📄 License
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
