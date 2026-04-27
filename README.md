@@ -191,23 +191,27 @@ bundle exec pod install
 npm run ios
 # OR
 yarn ios
-🔐 Privacy First
-No call recording
-On-device processing
-Minimal data collection
-User-controlled alerts
-📈 Future Scope
-AI-based scam prediction
-Voice scam detection
-Global fraud intelligence network
-Banking integration
-👨‍💻 Author
+
+```
+#🔐 Privacy First
+
+## No call recording
+## On-device processing
+## Minimal data collection
+## User-controlled alerts
+
+#📈 Future Scope
+
+## AI-based scam prediction
+## Voice scam detection
+## Global fraud intelligence network
+## Banking integration
+
+#👨‍💻 Author
 
 Purjeet Shahu
 
-⭐ Contribution
+#⭐ Contribution
+## Pull requests are welcome. For major changes, open an issue first.
 
-Pull requests are welcome. For major changes, open an issue first.
-
-📄 License
 
