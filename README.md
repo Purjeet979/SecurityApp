@@ -193,25 +193,26 @@ npm run ios
 yarn ios
 
 ```
-#🔐 Privacy First
+# 🔐 Privacy First
 
-## No call recording
-## On-device processing
-## Minimal data collection
-## User-controlled alerts
+- No call recording
+- On-device processing
+- Minimal data collection
+- User-controlled alerts
 
-#📈 Future Scope
+# 📈 Future Scope
 
-## AI-based scam prediction
-## Voice scam detection
-## Global fraud intelligence network
-## Banking integration
+- AI-based scam prediction
+- Voice scam detection
+- Global fraud intelligence network
+- Banking integration
 
-#👨‍💻 Author
+# 👨‍💻 Author
 
-Purjeet Shahu
+- Purjeet Shahu
+- Aditya Singh
 
-#⭐ Contribution
-## Pull requests are welcome. For major changes, open an issue first.
+# ⭐ Contribution
+- Pull requests are welcome. For major changes, open an issue first.
 
 
